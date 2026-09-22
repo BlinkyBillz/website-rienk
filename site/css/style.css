@@ -1,0 +1,1827 @@
+/* ==========================================================================
+   RIENK SPEELMAN — site styles
+   (Rienk: you don't need to edit this file — all text lives in content.js)
+   ========================================================================== */
+
+/* ---------- self-hosted fonts (Bebas Neue + Space Mono, OFL-licensed) ---------- */
+
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/bebasneue-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/bebasneue-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/spacemono-400-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/spacemono-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/spacemono-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/spacemono-700-vietnamese.woff2") format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/spacemono-700-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/spacemono-700-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --bg: #0a0000;
+  --bg-raised: #140a0a;
+  --ink: #f5f5f5;
+  --ink-muted: rgba(245, 245, 245, 0.62);
+  --accent: #edf07b;
+  --accent-ink: #060000;
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-mono: "Space Mono", "Courier New", monospace;
+  --header-h: 76px;
+  /* the phone/tablet gutter. From 989px up it is overridden by a ramp
+     inside the .work-grid media block (see ":root { --pad-x }" further
+     down) — it lives there because the ramp and the multi-column switch
+     are tuned against each other and must not drift apart */
+  --pad-x: clamp(1.25rem, 4vw, 4rem);
+  /* shape of every picture frame on the page (matches video).
+     Two places re-state it by hand instead of reading it, because CSS
+     can't do the arithmetic on a `16 / 9` token: `.video-frame`'s
+     aspect-ratio and the roll arrows' `9 / 32` margin. Both are flagged
+     where they sit; change this and check those two. */
+  --frame-ratio: 16 / 9;
+  /* hover motion, tune it here:
+     in  = mouse arrives (fast, front-loaded curve: instant reaction)
+     out = mouse leaves (slow, lingering curve: the blur visibly hangs on
+           before drifting sharp — a front-loaded curve here would finish
+           the visible part in half a second no matter the duration) */
+  --hover-in: 0.35s;
+  --hover-out: 0.9s;
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-release: cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* the hidden attribute must always win, whatever display an element normally has */
+[hidden] { display: none !important; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  /* the accent fades in instead of snapping — same calm as the cards */
+  transition: color 0.2s ease;
+}
+
+a:hover { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 999px;
+}
+
+.skip-link:focus { top: 1rem; color: var(--accent-ink); }
+
+/* ---------- header ---------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  height: var(--header-h);
+  padding: 0 var(--pad-x);
+  transition: background-color 0.3s ease;
+}
+
+.site-header.scrolled {
+  background: rgba(10, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.header-nav {
+  display: flex;
+  gap: 1.75rem;
+  font-size: 0.95rem;
+}
+
+.header-name {
+  justify-self: center;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.header-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.header-socials {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.header-socials a {
+  display: inline-flex;
+  padding: 10px;
+  margin: -10px -4px;
+}
+
+.header-socials svg { width: 22px; height: 22px; }
+
+/* pill button (the yellow one) — a full capsule, mono caps, generous
+   padding. The border is there at rest but transparent: the hover flips it
+   to a dotted accent outline, and carrying it all along means the flip
+   doesn't shove the text around by three pixels */
+
+.pill-button {
+  display: inline-block;
+  padding: 0.85em 1.9em;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  /* the same asymmetric timing as the cards: the base rule is the slow
+     release, the hover rule below overrides it for the way in */
+  transition: transform var(--hover-out) var(--ease-release),
+              background-color var(--hover-out) var(--ease-release),
+              border-color var(--hover-out) var(--ease-release),
+              color var(--hover-out) var(--ease-release);
+}
+
+/* on a phone :hover sticks after the tap, and the generic a:hover would
+   then paint the label accent-yellow on an accent-yellow pill. This keeps
+   the label readable there; mice get the real hover, right below */
+.pill-button:hover { color: var(--accent-ink); }
+
+/* the hover is for mice only: the whole point is that it comes back, and a
+   sticky :hover would leave the button parked in its hollow state for the
+   rest of the visit. The fill drains away and a dotted accent outline
+   takes its place — the hero pills and the roll arrows run that same
+   dotted→solid flip the other way round. (Not the badges: they carry no
+   border at all, see the note on .play-badge.) */
+@media (hover: hover) and (pointer: fine) {
+  .pill-button:hover,
+  .pill-button:focus-visible {
+    background: transparent;
+    border-color: var(--accent);
+    border-style: dotted;
+    color: var(--accent);
+    transform: scale(1.04);
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+}
+
+/* press feedback — deliberately after the hover rules (same specificity,
+   so it wins while the button is held) and outside the hover gate, since
+   touch is exactly who needs it. Quick, like the cards' press: a button
+   has to answer the finger at once, whatever the hover timing is doing */
+.pill-button:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+.pill-button-big {
+  padding: 1.1rem 2.6rem;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 360px) {
+  .pill-button-big {
+    padding: 1rem 1.6rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* burger — hidden on desktop */
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  width: 44px;
+  height: 44px;
+  padding: 0 8px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--ink);
+  transition: transform 0.25s ease;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
+  transform: translateY(4.5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) {
+  transform: translateY(-4.5px) rotate(-45deg);
+}
+
+/* mobile menu overlay */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: calc(var(--header-h) + 1rem) 1rem 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(10, 0, 0, 0.97);
+  text-align: center;
+  /* the script only toggles [hidden]; a display:none → flex change restarts
+     CSS animations by itself, so the menu fades in with no JS involved.
+     Closing stays instant — you tapped the X, the page should be there */
+  animation: menu-in 0.35s var(--ease-smooth);
+}
+
+@keyframes menu-in {
+  from { opacity: 0; }
+}
+
+/* centered when it fits, scrollable when it doesn't (small landscape phones).
+   The two auto margins are one idea: this margin-top and the margin-bottom
+   on .mobile-menu-socials further down push the block to the middle while
+   there is room, and give way to the scroll when there isn't */
+.mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: auto;
+}
+
+.mobile-menu nav a {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  /* backwards fill = each link waits out its delay invisible instead of
+     flashing in place first */
+  animation: menu-link-in 0.4s var(--ease-smooth) backwards;
+}
+
+/* one after another, 40ms apart — capped at the sixth so a long section
+   list never keeps the last link waiting */
+.mobile-menu nav a:nth-child(2) { animation-delay: 0.04s; }
+.mobile-menu nav a:nth-child(3) { animation-delay: 0.08s; }
+.mobile-menu nav a:nth-child(4) { animation-delay: 0.12s; }
+.mobile-menu nav a:nth-child(5) { animation-delay: 0.16s; }
+.mobile-menu nav a:nth-child(n + 6) { animation-delay: 0.2s; }
+
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* keep this after the `.mobile-menu nav a` base rule — same specificity,
+   cascade decides */
+@media (max-height: 520px) {
+  .mobile-menu nav a { font-size: 1.8rem; }
+}
+
+/* margin-bottom: auto is the other half of the centring described on
+   `.mobile-menu nav` above */
+.mobile-menu-socials {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: auto;
+}
+
+.mobile-menu-socials a {
+  display: inline-flex;
+  padding: 10px;
+}
+
+.mobile-menu-socials svg { width: 26px; height: 26px; }
+
+/* ---------- hero ---------- */
+
+/* Phones get 55svh, not a full screen. The hero's content is only ~245px
+   tall on a phone but it is anchored to the BOTTOM, so a 100svh hero put
+   two thirds of the first screen — 573px on a 412×870 Android — of nothing
+   above the name, and pushed the first section 46px BELOW the fold: the
+   page opened on a void with no sign anything followed (owner flagged it).
+   At 55svh the black above the name is 21%, and the first section label,
+   the whole first card AND its title land on the opening screen. It is a
+   MIN-height, so nothing is ever clipped: on a landscape phone the content
+   is taller than 55svh and the hero simply grows to fit it (measured 80%
+   of the viewport at 812×375, still no overflow). */
+.hero {
+  min-height: 55vh;
+  min-height: 55svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: calc(var(--header-h) + 2rem) var(--pad-x) clamp(2rem, 6vh, 5rem);
+}
+
+/* on larger screens the hero stops short of the fold so the first work
+   section peeks from below — an invitation to scroll instead of a void */
+@media (min-width: 721px) {
+  .hero {
+    min-height: 78vh;
+    min-height: 78svh;
+  }
+}
+
+/* the script measures this line and rescales it to span the column exactly
+   (fitHeroName), so this size is only ever the starting point — and the fit
+   is a ratio, so changing the start cannot change where it lands. What it
+   DOES decide is the no-JS page: at 30vw the name rendered 432px, wrapped to
+   three lines and broke mid-word. This is a size a browser can live with on
+   its own. */
+.hero-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 14vw, 12rem);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+/* the tagline and the categories are one sentence — "…MUSIC FOR" is
+   finished by "COMMERCIALS · GAMES & TRAILERS · …" — so they stack as a
+   single left-aligned unit instead of being thrown at opposite edges of
+   the page, where the reader had to jump the gap to complete the line */
+.hero-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* real air between the sentence and its pills — crowding them read as
+     one messy block (the reference gives this same beat generous room) */
+  gap: clamp(1.4rem, 3.2vh, 2.4rem);
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+}
+
+/* the reference's label treatment: accent mono, regular weight, tracked —
+   it makes tagline + pills one yellow system that introduces the work,
+   instead of a second bold white voice fighting the name above */
+.hero-tagline {
+  margin: 0;
+  /* ch ignores letter-spacing: the 0.08em tracking costs ~4ch extra, so
+     the one-line budget is wider than the old 46ch. Bumped from 52 to 58
+     so the full "PRODUCER, SONGWRITER, SOUND DESIGNER & VOCALIST FOR"
+     phrase clears one line instead of stranding "& VOCALIST FOR" alone
+     on a second one. */
+  max-width: 58ch;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: var(--accent);
+}
+
+/* the auto-generated category list — doubles as section navigation.
+   The reference template's filter pills, faithfully: dotted accent
+   capsules that FILL WITH ACCENT FROM THE BOTTOM UP when pointed at.
+   One wrapping row directly under the tagline, so the sentence still
+   reads "…MUSIC FOR → COMMERCIALS …" */
+.hero-categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* .hero-sub's align-items: flex-start shrinks flex children to their
+     content width by default — stretch this one back out to the full
+     hero column (same --pad-x gutters as the video grid below) and
+     spread the pills across it instead of clumping them left */
+  align-self: stretch;
+  justify-content: space-between;
+  gap: 0.7rem 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  line-height: 1.4;
+}
+
+/* the rising fill is a bottom-anchored background layer grown via
+   background-size — no extra element, and a plain gradient of one colour
+   costs nothing. The text flips dark on the same clock, so the label is
+   always readable against whatever's behind it mid-rise.
+   NOT on the big hover tokens: those durations are tuned for the image
+   blur, and on a control this small the 0.9s drain read as sluggish — the
+   pills answer in control-time (quick up, slightly softer down). */
+.hero-categories a {
+  --pill-border: 1.5px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5em 1.2em;
+  border: var(--pill-border) dotted var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  background-image: linear-gradient(0deg, var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0%;
+  /* border-box, not the default padding-box: the border is transparent once
+     the drawn ring takes over, so a fill that stops at the padding box left
+     a 1.5px window onto the page — a black hairline down the filled pill */
+  background-origin: border-box;
+  transition: background-size 0.3s var(--ease-smooth),
+              color 0.3s var(--ease-smooth);
+}
+
+/* the visible capsule is ~40px tall (measured at 1440) — this invisible
+   halo is what adds 4px all round and makes the tap target 44px+ (same
+   trick as the header pill and the roll arrows). There is no min-height
+   here on purpose: the capsule is sized by its own padding and line-height,
+   and a min-height would grow it out from under the drawn ring, which is
+   measured from offsetHeight (updatePillRings in js/site.js) */
+.hero-categories a::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+}
+
+/* the drawn dotted ring (see site.js): round SVG dots divided evenly along
+   the capsule's exact perimeter, because a CSS dotted border spaces its
+   dots per edge and hiccups where the straights meet the curves. Hidden
+   until the script has really sized it; only then does the CSS border —
+   the no-JS fallback — go invisible (color, not width: no layout shift). */
+/* the negative inset is load-bearing, not a nudge: an absolutely positioned
+   child is laid out against its parent's PADDING box, while the script
+   measures the pill with offsetWidth/Height — the BORDER box. Pulling the
+   SVG out by the border width makes its viewport the same box the ring's
+   geometry was computed from; with inset: 0 the ring was drawn 3px too big
+   for its own canvas and drifted off the curve at the bottom and right. */
+/* the ring fills this box exactly, and the script measures THIS box rather
+   than the pill: an <svg> is a replaced element (width auto would take its
+   intrinsic 300×150 and ignore the insets), and browsers round a 1.5px
+   border to whole device pixels, so any arithmetic from the pill's own size
+   lands half a pixel out. Measuring the canvas the ring is drawn on can't. */
+.pill-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* the SVG is always in the box — it has to be measurable before the ring can
+   be drawn to it — but an unsized <rect> paints nothing, so until the script
+   has measured, the CSS dotted border is still the visible outline. Only a
+   successful measure sets .has-ring and hands the outline over. */
+.hero-categories a.has-ring { border-color: transparent; }
+
+.pill-ring rect {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* on hover the ring closes into a solid line — the same dotted → solid
+   snap as everywhere else (the CSS property beats the measured attribute) */
+@media (hover: hover) and (pointer: fine) {
+  .hero-categories a:hover .pill-ring rect,
+  .hero-categories a:focus-visible .pill-ring rect {
+    stroke-dasharray: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-categories a:hover,
+  .hero-categories a:focus-visible {
+    color: var(--accent-ink);
+    border-style: solid;
+    background-size: 100% 100%;
+    transition-duration: 0.2s;
+  }
+}
+
+/* A finger never matches the query above, so on a phone the pills answered a
+   tap with nothing at all. Same end state, arriving at press speed: the fill
+   IS the feedback here, which is why these don't get the 0.98 dip the other
+   pressable things use. Deliberately ungated and placed after the hover
+   block — equal specificity, so source order is what lets a press win while
+   it is held. */
+.hero-categories a:active {
+  color: var(--accent-ink);
+  border-style: solid;
+  background-size: 100% 100%;
+  transition-duration: 0.1s;
+}
+
+/* the drawn ring closes up with it — on touch this rule is the only thing
+   that ever solidifies it */
+.hero-categories a:active .pill-ring rect {
+  stroke-dasharray: none;
+}
+
+/* ---------- sections ---------- */
+
+.section {
+  padding: clamp(3.5rem, 10vh, 7rem) var(--pad-x);
+}
+
+.work-section {
+  padding-top: clamp(2.5rem, 7vh, 5rem);
+  padding-bottom: clamp(2.5rem, 7vh, 5rem);
+}
+
+/* the first section sits tight under the hero on purpose: the hero already
+   ends with its own bottom padding, and this is what lets the label and the
+   top of the first row of work crest the fold as a scroll cue */
+#work > .work-section:first-child {
+  padding-top: clamp(1.25rem, 2.5vh, 2rem);
+}
+
+/* the section name is the second voice on the page after the hero: display
+   type, full strength. It used to be a muted mono whisper, which left the
+   work looking like an unlabelled contact sheet */
+.section-label {
+  margin: 0 0 clamp(1.5rem, 3vh, 2.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.03em; /* Bebas is condensed — mono tracking would gap it */
+  color: var(--ink);
+}
+
+/* the counter stays a small mono garnish: an absolute size, not em, or it
+   would grow with the display type it hangs off */
+.section-count {
+  margin-left: 0.35rem; /* a real space precedes it in the text as well */
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  vertical-align: 0.5em; /* rides against the caps instead of the baseline */
+}
+
+/* hairline between work sections keeps the zones readable */
+.work-section + .work-section,
+.music-section {
+  border-top: 1px solid rgba(245, 245, 245, 0.08);
+}
+
+.giant-label {
+  margin: 0 0 3rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(4rem, 12vw, 10rem);
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+}
+
+/* MUSIC is Rienk's own releases — a sideline next to the commissioned work,
+   so it sits between the section labels and the full-size statements
+   ("I'M RIENK", "GET IN TOUCH") instead of shouting over the client work */
+#music .giant-label {
+  font-size: clamp(3rem, 7.5vw, 6.5rem);
+  /* the base .giant-label margin is sized for the full-scale headings;
+     scale the gap down with the type */
+  margin-bottom: clamp(2rem, 4vh, 2.5rem);
+}
+
+/* ---------- work grid & cards ---------- */
+
+/* one card per row on phones. On desktop the count is decided per SECTION,
+   not by the stylesheet: balanceColumns()/bestColumns() in js/site.js counts
+   the non-featured cards and sets --cols to 2 or 3 — whichever leaves no
+   empty gap in the last row (3 wins ties) */
+.work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+@media (min-width: 989px) {
+  /* --cols is set per section (2, or 3 when that leaves no empty gap) */
+  .work-grid {
+    grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+  }
+
+  /* wider page margins on desktop: the whole page — name, labels and
+     players alike — sits in a narrower column, so the players come down
+     in size while the margins stay equal on both sides at any width.
+     RAMPED, not stepped: this breakpoint is also where the cards go
+     multi-column, and jumping straight to 13vw here took the page column
+     from 909px at 988 to 732px at 989 — one pixel wider and every card in a
+     three-up section lost 60% of its width, with the wordmark shoved 68px
+     off centre. So the gutter grows linearly out of the phone value it had
+     at 988 (≈40px) and only MEETS 13vw at 1280, where there is room for it.
+     The middle term is that line; the clamp's ceiling hands over to plain
+     13vw from 1280 up, and its floor guards a zoomed-in root font.
+     It is declared HERE rather than beside the base --pad-x at the top of
+     the file because the two changes on this breakpoint are tuned against
+     each other — separating them is exactly how the 988→989 cliff got in. */
+  :root {
+    --pad-x: clamp(2.5rem, 43.44vw - 389.6px, 13vw);
+  }
+}
+
+.work-card { min-width: 0; }
+
+/* --- feature card: media beside an oversized display title. NOTHING is
+       featured automatically — a card only lands here when the owner wrote
+       `featured: "left" | "right" | "center"` on that item in content.js
+       (featureMode() in js/site.js). --- */
+
+.work-feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: end;
+}
+
+.work-feature .work-meta {
+  margin: 0 0 0.4rem;
+}
+
+/* a feature whose caption never rendered still fills the whole row */
+.work-feature > :only-child {
+  grid-column: 1 / -1;
+}
+
+/* flipped: title left — the template mirrors so media keeps the wide column */
+.work-feature.feature-flip {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 5fr);
+}
+
+.work-feature.feature-flip .work-meta {
+  order: -1;
+  text-align: right;
+}
+
+.work-feature .work-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
+.work-feature .work-subtitle {
+  margin-top: 0.6rem;
+}
+
+/* centered feature: media takes the full row; the caption sits centered
+   below it (and becomes a hover overlay on mouse devices, see below) */
+.work-feature.feature-center {
+  grid-template-columns: 1fr;
+}
+
+.feature-center .work-meta {
+  margin: 1.1rem 0 0;
+  text-align: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .feature-center {
+    position: relative;
+  }
+
+  /* the caption hides and fades in over the media on hover; the badge
+     hands over to the title */
+  .feature-center .work-meta {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: clamp(1rem, 4vw, 2rem);
+    border-radius: 4px;
+    overflow: hidden;
+    /* at 0.35 the softened picture came through at 3.8:1 behind the subtitle
+       on one of the DARKEST stills on the site — a live AA failure, and the
+       owner has no way to tell when a brighter still makes it worse. 0.6
+       clears the floor with room on top (7.7:1 even against pure white) */
+    background: rgba(10, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity var(--hover-out) var(--ease-release);
+    pointer-events: none; /* clicks fall through to the video/banner */
+  }
+
+  /* on desktop this overlay is the ONLY place the client and the role are
+     readable, so the subtitle drops its muting here — headroom on top of the
+     deeper scrim, and it costs nothing: the caption below still reads muted
+     everywhere the overlay doesn't exist (touch included) */
+  .feature-center .work-meta .work-subtitle {
+    color: var(--ink);
+  }
+
+  .feature-center .video-thumb:hover ~ .work-meta,
+  .feature-center .video-thumb:focus-visible ~ .work-meta,
+  .feature-center .banner:hover ~ .work-meta,
+  .feature-center .banner:focus-visible ~ .work-meta {
+    opacity: 1;
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+
+  /* the badge leaves on exactly the timing the caption arrives on, so the
+     hand-over reads as one move instead of a pop followed by a fade */
+  .feature-center .video-thumb:hover .play-badge,
+  .feature-center .video-thumb:focus-visible .play-badge,
+  .feature-center .banner:hover .visit-badge,
+  .feature-center .banner:focus-visible .visit-badge {
+    opacity: 0;
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+}
+
+/* --- video cards --- */
+
+.video-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--frame-ratio);
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-raised);
+  cursor: pointer;
+}
+
+/* the base transition governs the RELEASE (mouse leaving): deliberately
+   slow, so the image drifts back to sharp — that unhurried return is what
+   makes the effect feel calm. The hover rules override the duration for a
+   responsive way in. */
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--hover-out) var(--ease-release),
+              filter var(--hover-out) var(--ease-release);
+}
+
+/* --- the two badges: ▸ on a video, ↗ on a banner that links out. One
+       shape, dead centre of the frame — that's where the eye already is,
+       and it's where a centred feature hands the middle over to its caption.
+       At REST the badge is deliberately quiet: no yellow disc parked on the
+       shot, just a grey scrim with the glyph in accent (the dotted outline
+       was tried and dropped — the outlined-capsule language belongs to the
+       hero pills). It hovers LOUD — the disc fills accent, the glyph
+       inverts — and it lands at exactly the moment the picture goes soft. --- */
+.play-badge,
+.visit-badge {
+  position: absolute;
+  inset: 0;
+  margin: auto; /* dead centre, with a size of its own */
+  width: clamp(52px, 6vw, 56px);
+  height: clamp(52px, 6vw, 56px);
+  border-radius: 50%;
+  background: rgba(10, 0, 0, 0.4); /* enough scrim to hold on a bright still */
+  color: var(--accent); /* the glyphs below paint themselves with this */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* the click belongs to the card underneath */
+  /* slow settle on release, like the image — the card moves as one */
+  transition: transform var(--hover-out) var(--ease-release),
+              opacity var(--hover-out) var(--ease-release),
+              background-color var(--hover-out) var(--ease-release),
+              color var(--hover-out) var(--ease-release);
+}
+
+.play-badge svg,
+.visit-badge svg {
+  width: 34%;
+  height: 34%;
+}
+
+.play-badge svg {
+  margin-left: 6%; /* a triangle reads left-heavy dead centre */
+  fill: currentColor;
+}
+
+.visit-badge svg {
+  stroke: currentColor;
+  stroke-width: 2.4;
+  fill: none;
+}
+
+.video-frame {
+  width: 100%;
+  /* written out rather than var(--frame-ratio): this is YouTube's own
+     player, which is 16:9 whatever shape our picture frames take. If you
+     ever change --frame-ratio (top of this file), check that the swap from
+     thumbnail to player still doesn't jump. */
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+  /* 0.35s here and FADE_OUT = 350 in js/site.js are the same number: the
+     script waits out this fade before it replaces the player with the
+     thumbnail. Change one and change the other. */
+  transition: opacity 0.35s ease;
+}
+
+/* the swap runs both ways: on play the frame replaces the thumbnail and
+   fades up from the card's own black ground; handing back it dissolves out
+   and the thumbnail fades in. (Under reduced motion the script skips both
+   classes — .video-frame has no transition there, so a fade would only be
+   a blink.) */
+.video-frame.is-entering,
+.video-frame.is-leaving { opacity: 0; }
+
+/* .video-thumb a second time, on purpose: its shape is set up at the top of
+   this section, but this fade only exists for the swap above, so it stays
+   next to the .is-returning state it belongs to. (Nothing in between
+   touches .video-thumb, so the two rules never compete.) */
+.video-thumb { transition: opacity 0.5s var(--ease-smooth); }
+
+.video-thumb.is-returning { opacity: 0; }
+
+.video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* --- banner cards (image + optional link, or generated text banner) --- */
+
+.banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--frame-ratio);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-raised);
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--hover-out) var(--ease-release),
+              filter var(--hover-out) var(--ease-release);
+}
+
+.banner-generated {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border: 1px solid rgba(245, 245, 245, 0.14);
+  background:
+    radial-gradient(120% 160% at 20% 0%, rgba(237, 240, 123, 0.08), transparent 55%),
+    var(--bg-raised);
+  transition: border-color 0.3s ease;
+}
+
+a.banner-generated:hover,
+a.banner-generated:focus-visible {
+  border-color: rgba(237, 240, 123, 0.5);
+}
+
+.banner-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 5vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  text-align: center;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+a.banner-generated:hover .banner-title {
+  color: var(--accent);
+}
+
+/* --- spotify cards --- */
+
+.spotify-embed iframe {
+  display: block;
+  width: 100%;
+  height: 420px;
+  border: 0;
+  border-radius: 14px;
+}
+
+.spotify-track iframe { height: 232px; }
+
+/* episodes use the same 352px layout as shows, so side-by-side podcast
+   cards align instead of leaving a hole under the shorter one */
+.spotify-episode iframe,
+.spotify-show iframe { height: 352px; }
+
+/* --- client roll: the works the owner marked  roll: true  in content.js.
+       One quiet strip of credits instead of a second wall of big cards
+       (a tile with a link is clickable — see .client-link below) --- */
+
+.client-roll {
+  /* one number for both shapes of this strip: the four-up grid right here,
+     and the sliding rail further down, which measures its tiles from it */
+  --roll-gap: clamp(1.25rem, 2.5vw, 2rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* half the size of a card */
+  gap: var(--roll-gap);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgba(245, 245, 245, 0.08);
+}
+
+.client-roll-alone {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.client { min-width: 0; }
+
+/* a work in the roll that HAS a link: the whole tile is one quiet link.
+   display: block because it wraps the picture AND the caption — an inline
+   box around block children splits in odd places. Nothing else is needed:
+   no badge disc, no blur (the roll promises less than a card on purpose),
+   and the global a:hover already lifts the name to accent, the same move a
+   generated banner makes.
+   position: relative is load-bearing: the "(opens in a new tab)" span inside
+   is position: absolute, and without a positioned ancestor it hangs off the
+   page instead of off the tile — which, once the roll slides, pushes the
+   whole document sideways in Blink/WebKit (Gecko clips it either way). */
+.client-link {
+  display: block;
+  position: relative;
+}
+
+/* the picture keeps its own colour — the frame crops and clips it */
+.client-shot {
+  width: 100%;
+  aspect-ratio: var(--frame-ratio);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--bg-raised);
+}
+
+/* the roll sits a step back at rest — four bright logo shots at full
+   strength pulled the eye away from the work above them. Hovering brings
+   the colour all the way up, on the same asymmetric timing as the cards */
+.client-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85) saturate(0.9);
+  transition: transform var(--hover-out) var(--ease-release),
+              filter var(--hover-out) var(--ease-release);
+}
+
+/* no picture → the name fills the frame instead */
+.client-shot-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border: 1px solid rgba(245, 245, 245, 0.14);
+  background:
+    radial-gradient(120% 160% at 20% 0%, rgba(237, 240, 123, 0.08), transparent 55%),
+    var(--bg-raised);
+}
+
+.client-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.client-title {
+  margin: 0.8rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+.client-label {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .client:hover .client-shot img {
+    transform: scale(1.05);
+    filter: none;
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+}
+
+/* --- more than four works in the roll? it slides sideways ---
+   A fifth tile would open a second row, and two rows of pictures are the
+   wall of imagery this quiet strip exists to avoid. So from five up the
+   renderer turns the roll into a horizontal scroller. The tiles are then
+   sized so the NEXT one is already peeking in at the right edge — that
+   sliver is the real "this scrolls" signal; the two triangle buttons are
+   the backup for anyone who doesn't read it, and the only cue a keyboard
+   gets. Four or fewer tiles never take this path: the class isn't added,
+   and those sections render byte for byte what they always did. */
+
+/* the double class is deliberate: it has to beat the plain .client-roll
+   rules above AND the two-up phone rule at the bottom of the file */
+.client-roll.client-roll-scroll {
+  /* everything stacks in one cell: the rail, with the two buttons on top of
+     it. Grid placement rather than position: absolute — .client-roll carries
+     the reveal animation's transform, which would move the goalposts */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* whole tiles across, and the total the width is divided into:
+     four whole ones plus 35% of the fifth.
+     --roll-across is the same four as ROLL_MAX in js/site.js, which is what
+     decides that a roll starts sliding at all. Keep them equal: a bigger
+     ROLL_MAX would leave rolls that never slide, a smaller one would slide
+     a roll whose tiles all already fit. */
+  --roll-across: 4;
+  --roll-span: 4.35;
+  --roll-arrow: 36px;
+  /* the width of one tile — the gaps between the visible tiles come off
+     the top, what's left is split. Both places this is used resolve the
+     100% against the same box (the roll's content width) */
+  --roll-tile: calc((100% - var(--roll-across) * var(--roll-gap)) / var(--roll-span));
+}
+
+.client-rail {
+  grid-area: 1 / 1;
+  display: flex;
+  gap: var(--roll-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* snap to the start of a tile, but gently — "proximity" leaves a slow,
+     deliberate drag where the visitor put it */
+  scroll-snap-type: x proximity;
+  /* a flick that runs out of tiles stays in the strip instead of turning
+     into a page scroll or the browser's back gesture */
+  overscroll-behavior-x: contain;
+  /* no scrollbar: the peeking tile and the buttons say it better. The rail
+     keeps tabindex="0" from the renderer, so the arrow keys still scroll it
+     — and then the page's normal focus ring shows around it */
+  scrollbar-width: none;
+}
+
+.client-rail::-webkit-scrollbar { display: none; }
+
+.client-rail > .client {
+  flex: 0 0 var(--roll-tile);
+  scroll-snap-align: start;
+}
+
+/* the fully-scrolled position must itself be a snap point, or proximity
+   snapping tugs the rail back and the last tile can never be seen whole —
+   with five tiles the only tile-start beyond the first isn't reachable */
+.client-rail > .client:last-child { scroll-snap-align: end; }
+
+/* a linked tile's focus ring is drawn just INSIDE it once the roll slides:
+   the rail is a scroll box and clips vertically, so the usual ring 3px
+   outside the tile would be cut off at the edges of the strip */
+.client-rail .client-link:focus-visible { outline-offset: -2px; }
+
+/* the buttons speak the badges' language: a dark disc behind a dotted
+   accent ring at rest, solid accent when you point at it. They are hints,
+   not calls to action, so they stay small and let the pictures lead */
+.roll-arrow {
+  grid-area: 1 / 1;
+  align-self: start;
+  position: relative; /* for the invisible tap padding below */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--roll-arrow);
+  height: var(--roll-arrow);
+  padding: 0;
+  border: 1.5px dotted var(--accent);
+  border-radius: 50%;
+  background: rgba(10, 0, 0, 0.55);
+  color: var(--accent);
+  cursor: pointer;
+  /* park it on the middle of the row of PICTURES, not of the whole tile
+     with its caption. A percentage TOP margin is measured against the
+     WIDTH of the box the button sits in — which is the very width the tile
+     is calculated from — so this stays true at every screen size: half a
+     picture (a tile is 16/9, so 9/32 of its width) minus half a button.
+     That 9/32 is --frame-ratio (top of the file) halved, worked out by
+     hand: calc() can't do arithmetic on a `16 / 9` ratio token. If the
+     frame ratio ever changes, this fraction has to change with it. */
+  margin-top: calc(var(--roll-tile) * 9 / 32 - var(--roll-arrow) / 2);
+  transition: transform var(--hover-out) var(--ease-release),
+              background-color var(--hover-out) var(--ease-release),
+              border-color var(--hover-out) var(--ease-release),
+              color var(--hover-out) var(--ease-release);
+}
+
+.roll-arrow-prev { justify-self: start; }
+.roll-arrow-next { justify-self: end; }
+
+/* a 36px disc is a small target — this is the invisible padding that makes
+   it a comfortable 48px one (the same trick the header pill uses) */
+.roll-arrow::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+/* the same 34% the play badge gives its glyph, so the two discs read as
+   the same family at their two different sizes */
+.roll-arrow svg {
+  width: 34%;
+  height: 34%;
+  fill: currentColor;
+}
+
+/* it is the play badge's triangle, and it hangs off-centre in a circle the
+   same way — nudged back towards its point */
+.roll-arrow-prev svg { margin-right: 6%; }
+.roll-arrow-next svg { margin-left: 6%; }
+
+@media (hover: hover) and (pointer: fine) {
+  .roll-arrow:hover,
+  .roll-arrow:focus-visible {
+    background: var(--accent);
+    border-style: solid;
+    color: var(--accent-ink);
+    transform: scale(1.1);
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+}
+
+/* --- card meta (title + subtitle + optional description under a card) --- */
+
+.work-meta { margin-top: 1.1rem; }
+
+/* --- hover effect (devices with a mouse): actionable cards — videos and
+       banners that link somewhere — blur softly and surface their action:
+       the centred badge fills solid accent and inverts its glyph, and an
+       item that has a `description:` fades it in over the top-left of the
+       softened picture (see the rules at the end of this block).
+       Static image banners just ease in with a gentle zoom.
+       Captions always stay below the cards.
+       (Both badges are shaped up in the video-cards section — one rule, since
+       ▸ and ↗ are the same object with a different glyph.) --- */
+
+/* triggers are scoped to the clickable element itself (not the whole card,
+   so hovering the caption promises nothing) and to :focus-visible (keyboard
+   focus only — script focus after a pause-restore must not re-blur) */
+@media (hover: hover) and (pointer: fine) {
+  /* the way IN is quick and front-loaded — these override the slow
+     lingering release set on the base rules */
+  .work-card.is-action .video-thumb:hover img,
+  .work-card.is-action .video-thumb:focus-visible img,
+  .work-card.is-action .banner:hover img,
+  .work-card.is-action .banner:focus-visible img {
+    filter: blur(10px) brightness(0.75);
+    transform: scale(1.05); /* hides the soft edges the blur creates */
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+
+  /* the quiet badge comes alive: grey scrim → solid accent, glyph
+     inverted, a small lift — landing at exactly the moment the picture
+     goes soft */
+  .work-card.is-action .video-thumb:hover .play-badge,
+  .work-card.is-action .video-thumb:focus-visible .play-badge,
+  .work-card.is-action .banner:hover .visit-badge,
+  .work-card.is-action .banner:focus-visible .visit-badge {
+    background: var(--accent);
+    color: var(--accent-ink);
+    transform: scale(1.1);
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+
+  /* …except on a centred feature, where hover FADES the badge out and hands
+     the frame to the caption — it should leave quietly, not go loud while
+     dissolving. Same five-class weight as the rule above, later in the
+     file, so it wins where both apply. */
+  .work-card.is-action.feature-center .video-thumb:hover .play-badge,
+  .work-card.is-action.feature-center .video-thumb:focus-visible .play-badge,
+  .work-card.is-action.feature-center .banner:hover .visit-badge,
+  .work-card.is-action.feature-center .banner:focus-visible .visit-badge {
+    background: rgba(10, 0, 0, 0.4);
+    color: var(--accent);
+    transform: none;
+  }
+
+  /* static banners: quiet zoom in, slow drift back out */
+  .work-card:not(.is-action) .banner:hover img {
+    transform: scale(1.06);
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+
+}
+
+/* what a finger gets instead of a hover: the picture dips under the press.
+   Outside the hover gate on purpose, and quick — a press should answer at
+   once, so this and the pill's press are the two timings that aren't on
+   the hover tokens. Scoped to actionable cards: a link-less banner has no
+   click to answer, so it must not pretend by dipping. */
+.video-thumb:active img,
+.work-card.is-action .banner:active img {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+.work-title {
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.external-mark { color: var(--accent); }
+
+.work-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+
+/* --- the optional description (content.js `description:`) ---
+   It simply prints under the subtitle, in accent, on every card and every
+   device. It used to be lifted onto the picture and revealed on hover; that
+   was dropped (owner's call — it read as a box dumped on the still). The
+   plain version is also the better one: hover text is invisible on every
+   phone and on the narrow cards of a three-up row, so the one line saying
+   what he actually DID was reaching almost nobody. Accent, so it reads as a
+   different kind of information from the grey subtitle above it. */
+.work-desc {
+  max-width: 46ch;
+  margin: 0.55rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--accent);
+}
+
+/* a featured item's text column is narrower than the card grid's, so the
+   measure is tightened to match the title block it sits under */
+.work-feature .work-desc {
+  max-width: 40ch;
+}
+
+/* the block follows its caption: right-hung when the title is left-hung,
+   centered under a centered one (auto margins, since the 40ch block is
+   narrower than the column it sits in) */
+.work-feature.feature-flip .work-desc {
+  margin-left: auto;
+}
+
+.work-feature.feature-center .work-desc {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* friendly error card shown when a link in content.js is broken */
+
+.card-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: var(--frame-ratio);
+  padding: 1.5rem;
+  border: 1px dashed rgba(245, 245, 245, 0.3);
+  border-radius: 4px;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ---------- about ----------
+   a statement, not a label: "I'M RIENK" in display type with the bio
+   beneath it, the portrait anchoring the right gutter */
+
+/* statement left, portrait pinned to the right edge of the page column, so
+   the About row spans the same width as the work grid above it */
+.about-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+
+/* photo missing/hidden → the intro takes the whole row */
+.about-body:has(> .about-photo[hidden]) {
+  grid-template-columns: 1fr;
+}
+
+.about-heading {
+  margin: 0 0 clamp(1.5rem, 3vh, 2.25rem);
+}
+
+.about-text {
+  margin: 0;
+  max-width: 52ch;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.8;
+}
+
+/* the frame does the clipping so the blur can't soften the circle's edge.
+   Flush with the right edge of the page column: the statement holds the
+   left, the portrait closes the row. */
+.about-photo {
+  width: clamp(220px, 30vw, 440px);
+  aspect-ratio: 1 / 1;
+  justify-self: end;
+  /* a squircle, not a circle: a 50% radius ate the top of his head */
+  border-radius: 22%;
+  overflow: hidden;
+}
+
+/* NOT grayscaled: this portrait's prism fringing IS the picture — filtering
+   it to mono would leave only a soft-edged blur */
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.03);
+  transition: transform var(--hover-out) var(--ease-release),
+              filter var(--hover-out) var(--ease-release);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-photo:hover img {
+    filter: contrast(1.03) blur(10px) brightness(0.75);
+    transform: scale(1.05); /* pushes the blur's soft edge out of the frame */
+    transition-duration: var(--hover-in);
+    transition-timing-function: var(--ease-smooth);
+  }
+}
+
+/* the phone breakpoint, first of two blocks. This one stays here, beside
+   the roll and About rules it overrides, rather than joining the block in
+   "responsive" further down — the file is organised by subject, and moving
+   these away from what they modify is how they'd get out of step.
+   Note the pair: js/site.js watches matchMedia("(min-width: 721px)") to
+   close the mobile menu; that 721 and this 720 are the same boundary. */
+@media (max-width: 720px) {
+  /* client roll goes two-up on phones */
+  .client-roll {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* …and the sliding one shows two whole tiles plus the same peek. The
+     double class again: the rule these two numbers come from is written
+     with it, and specificity beats source order */
+  .client-roll.client-roll-scroll {
+    --roll-across: 2;
+    --roll-span: 2.35;
+  }
+
+  /* on phones the swipe IS the interaction, and a 36px disc would sit
+     exactly on top of the peeking sliver that says "this scrolls" */
+  .roll-arrow { display: none; }
+
+  .about-body {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+    gap: 2.5rem;
+  }
+
+  .about-photo {
+    justify-self: center;
+  }
+}
+
+/* ---------- contact ---------- */
+
+.section-contact {
+  padding-bottom: clamp(6rem, 16vh, 10rem);
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem 2.5rem;
+}
+
+.contact-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact-socials a {
+  color: var(--ink-muted);
+  padding: 0.6rem 0.5rem;
+}
+
+.contact-socials a:hover { color: var(--accent); }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  padding: 2rem var(--pad-x) 2.5rem;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.site-footer p { margin: 0; }
+
+/* ---------- misc ---------- */
+
+/* invisible to eyes, readable by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* it sits at the very top of the page now, so it has to clear the fixed
+   header the way the hero does */
+.noscript-note {
+  padding: calc(var(--header-h) + 2rem) var(--pad-x) 2rem;
+  color: var(--ink);
+}
+
+.noscript-note a { color: var(--accent); text-decoration: underline; }
+
+/* content.js error screen */
+
+.content-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* clears the fixed header: the panel no longer replaces the whole body,
+     so on a phone its dashed border used to cut through the wordmark */
+  padding: calc(var(--header-h) + 2rem) 2rem 2rem;
+}
+
+.content-error div {
+  max-width: 44rem;
+  border: 1px dashed rgba(245, 245, 245, 0.35);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.content-error h1 {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 2.5rem;
+}
+
+.content-error code {
+  color: var(--accent);
+}
+
+/* divides the visitor's sentence from the owner's instructions below it */
+.content-error hr {
+  border: 0;
+  border-top: 1px solid rgba(245, 245, 245, 0.2);
+  margin: 1.5rem 0;
+}
+
+.content-error [lang="nl"] strong {
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+/* scroll reveal */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-smooth),
+              transform 0.7s var(--ease-smooth);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  a,
+  .hero-categories a, /* beats its own rule above, which outranks bare `a` */
+  .video-thumb img,
+  .banner img,
+  .about-photo img,
+  .client-shot img,
+  .video-thumb,
+  .video-frame,
+  .play-badge,
+  .visit-badge,
+  .pill-button,
+  .roll-arrow,
+  .menu-toggle-bar,
+  .feature-center .work-meta { transition: none; }
+  /* note: the client roll keeps its dimmed rest state — that's colour, not
+     motion. Only the easing between the two states goes away, above. The
+     dotted outlines on the hero pills and the arrows stay too: colour,
+     and they're what tells you the thing is clickable. The pills' rising
+     fill simply lands instantly here. */
+  /* presses land without the dip; the pill's hover lift would otherwise
+     SNAP to 1.04 here (its transition is off), so it goes too */
+  .pill-button:hover,
+  .pill-button:focus-visible,
+  .pill-button:active,
+  .video-thumb:active img,
+  .work-card.is-action .banner:active img,
+  /* every hover ZOOM on a picture goes the same way, for the same reason:
+     with the transition removed the 1.05/1.06 would jump in one frame. The
+     blur and the roll's colour lift stay — those aren't motion */
+  .work-card.is-action .video-thumb:hover img,
+  .work-card.is-action .video-thumb:focus-visible img,
+  .work-card.is-action .banner:hover img,
+  .work-card.is-action .banner:focus-visible img,
+  .work-card:not(.is-action) .banner:hover img,
+  .client:hover .client-shot img,
+  .about-photo:hover img { transform: none; }
+  /* same reasoning for the badges — the fill still flips, it just doesn't
+     jump a size while doing it (full selectors: the hover rules they have
+     to beat are five classes deep) */
+  .work-card.is-action .video-thumb:hover .play-badge,
+  .work-card.is-action .video-thumb:focus-visible .play-badge,
+  .work-card.is-action .banner:hover .visit-badge,
+  .work-card.is-action .banner:focus-visible .visit-badge,
+  /* the roll's scroll arrows flip their colours like the badges, they just
+     don't jump a size doing it (the script drops the smooth scrolling
+     itself — `reducedMotion()`; only the tile snap is left to the browser) */
+  .roll-arrow:hover,
+  .roll-arrow:focus-visible { transform: none; }
+  /* the menu and its links appear at once instead of rising in */
+  .mobile-menu,
+  .mobile-menu nav a { animation: none; }
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .header-socials { display: none; }
+}
+
+/* the phone breakpoint, second block (the header and hero half of it; the
+   roll and About half sits up in the About section, by the rules it
+   overrides). Same boundary as matchMedia("(min-width: 721px)") in
+   js/site.js and as the hero's 80svh @media (min-width: 721px) above. */
+@media (max-width: 720px) {
+  /* two columns, not three: the nav is gone, and an empty third track
+     would still cost a gap — which is width the pill needs */
+  .site-header {
+    grid-template-columns: minmax(0, auto) 1fr;
+  }
+
+  .header-nav { display: none; }
+
+  .header-name {
+    justify-self: start;
+    grid-column: 1;
+    font-size: 0.95rem;
+    /* a very long name gives way rather than pushing the pill off screen */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-actions {
+    gap: 0.9rem;
+  }
+
+  /* the CONTACT pill used to be hidden here — on exactly the screens where
+     a forwarded link gets opened. It stays, shrunk to fit beside the burger */
+  .header-contact {
+    position: relative;
+    padding: 0.45em 0.95em;
+    font-size: 0.7rem;
+  }
+
+  /* …with the tap target the small pill no longer has on its own (the same
+     trick the header socials use, invisible padding around the mark) */
+  .header-contact::after {
+    content: "";
+    position: absolute;
+    inset: -8px -6px;
+  }
+
+  /* while the menu is open the pill floats above the overlay, and only the
+     header name and skip link tell the script to close — following the pill
+     would strand the overlay over a scroll-locked page. The menu carries its
+     own CONTACT link, so the header one steps aside. */
+  .header-actions:has(.menu-toggle[aria-expanded="true"]) .header-contact {
+    visibility: hidden;
+  }
+
+  .menu-toggle { display: flex; }
+
+  /* the tagline breaks into its two deliberate lines on phones */
+  .hero-tagline {
+    max-width: 24ch;
+  }
+
+  /* the pills wrap into a loose two-ish-column cloud on phones — tighter
+     gaps so four of them don't eat the whole hero. The full-width spread
+     is a desktop/tablet thing (matching the video-grid width); here it
+     goes back to hugging its own content, same as the tagline above it */
+  .hero-categories {
+    gap: 0.6rem 0.6rem;
+    align-self: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* the smallest phones: the name gives way first so the pill and the burger
+   both keep their room (measured at 320px, the narrowest we support) */
+@media (max-width: 400px) {
+  .header-name {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* feature cards stack whenever the outer grid is single-column, otherwise
+   the "big" item would render smaller than the regular cards below it. So
+   this 988 MUST stay exactly one pixel under the 989 in the @media that
+   sets --cols (up in the work-grid block) — if they drift apart, "featured"
+   items render smaller than ordinary ones in the band between.
+   The number itself is a leftover: the grid used to be auto-filled from a
+   440px minmax, so 2×440 + gap was where two columns appeared. It isn't
+   measured any more — at 989 a two-up card is 439.7px but a three-up one is
+   283px — so treat 988/989 as a pair to keep in step, not as arithmetic. */
+@media (max-width: 988px) {
+  .work-feature,
+  .work-feature.feature-flip {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .work-feature .work-meta,
+  .work-feature.feature-flip .work-meta {
+    order: 0;
+    margin: 1.1rem 0 0;
+    text-align: left;
+  }
+
+  /* the stacked caption is left-aligned again, so the description hugs the
+     left edge instead of the right column it no longer has */
+  .work-feature.feature-flip .work-desc {
+    margin-left: 0;
+  }
+
+  /* --- below the stack point a featured item is just a card ---
+     Featuring is a LAYOUT idea: an oversized title earns its size by
+     sitting beside media in a wide row. In one column there is nothing
+     left to be featured against, so a bigger title is a promise the page
+     can't keep — the reader sees two headings of similar weight and no
+     reason for the difference. (This used to shrink the display face to
+     ~2.4rem, which only landed it in the gap between "the same" and "a
+     statement".) So here the caption is reset to the ordinary one, and
+     position in the section carries the emphasis instead.
+     The one thing kept: a feature's `description:` still prints. It is
+     content, not decoration, and a phone has no hover, so this is the
+     only route by which any description reaches a mobile visitor. */
+  .work-feature .work-title {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .work-feature .work-subtitle {
+    margin-top: 0.25rem;
+  }
+
+  /* centring was the other half of the same promise */
+  .work-feature.feature-center .work-meta,
+  .work-feature.feature-center .work-desc {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
