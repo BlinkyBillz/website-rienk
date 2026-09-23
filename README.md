@@ -3,10 +3,10 @@
 Twee dingen in deze map:
 
 - **`editor.html`** — hiermee pas je de site aan.
-- de map **`site`** — dát is je website. Alleen die map gaat online.
+- de map **`docs`** — dát is je website. Alleen die map gaat online.
 
 De rest (dit bestand, `CLAUDE.md`, oude versies van `content.js`) is
-gereedschap en hoort er niet bij. Zolang je alleen de map `site` naar
+gereedschap en hoort er niet bij. Zolang je alleen de map `docs` naar
 Netlify sleept, komt daar dus niets van op internet.
 
 ## Iets aanpassen
@@ -14,7 +14,7 @@ Netlify sleept, komt daar dus niets van op internet.
 Dubbelklik **`editor.html`**. Daar zit alles in: werk toevoegen, teksten,
 foto's, links. Aanpassen, **Opslaan** klikken, en de editor maakt een
 nieuwe `content.js` — die belandt in je map **Downloads**. Sleep hem uit
-Downloads in de map **`site`**, over de oude `content.js` heen. Klaar.
+Downloads in de map **`docs`**, over de oude `content.js` heen. Klaar.
 
 Wil je meteen zien wat je doet? Klik bovenin op **Voorbeeld**. Naast het
 formulier verschijnt je site, en die werkt zichzelf bij zodra je even stopt
@@ -25,7 +25,7 @@ en is de knop er dus niet.
 
 ## Bekijken
 
-Dubbelklik **`index.html`** in de map **`site`**. Je site opent in je
+Dubbelklik **`index.html`** in de map **`docs`**. Je site opent in je
 browser, precies zoals hij online komt te staan.
 
 Op één ding na: video's openen hier op YouTube in een nieuw tabblad in
@@ -36,14 +36,14 @@ af waar ze horen.
 ## Studio-video
 
 De knop **STUDIO** speelt een eigen videobestand direct op de site af. Zet het
-bestand in `site/videos/` en vul in de editor bijvoorbeeld
+bestand in `docs/videos/` en vul in de editor bijvoorbeeld
 `videos/studio.mp4` in. De video begint automatisch, zonder geluid; de
 bezoeker kan het geluid aanzetten met de speler. Gebruik hiervoor geen
 YouTube-link.
 
 ## Foto's
 
-Zet ze in de map `site/images/`. Gebruik **liggend** beeld (de vorm van een
+Zet ze in de map `docs/images/`. Gebruik **liggend** beeld (de vorm van een
 videothumbnail), ongeveer **1600 pixels breed** — zwaardere persfoto's
 maken de site alleen traag.
 
@@ -52,9 +52,9 @@ Op je Mac maakt dat niets uit, online wél — daar blijft de foto dan weg.
 
 ## Online zetten
 
-Sleep de map **`site`** naar **drop.netlify.com** — niet de map waar dit
-bestand in staat, maar `site` zelf. Je krijgt meteen een link. Bijwerken?
-Sleep `site` opnieuw naar binnen.
+Sleep de map **`docs`** naar **drop.netlify.com** — niet de map waar dit
+bestand in staat, maar `docs` zelf. Je krijgt meteen een link. Bijwerken?
+Sleep `docs` opnieuw naar binnen.
 
 Alles wat online mag staan zit in die map, en niets anders. Je hoeft dus
 nooit iets weg te gooien of uit te zoeken voor je publiceert.

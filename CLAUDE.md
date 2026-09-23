@@ -68,7 +68,7 @@ He may write in Dutch; that's fine.
 
 ## File map
 
-- `site/content.js` — owner-editable content. Structure: `name`, `fullName`,
+- `docs/content.js` — owner-editable content. Structure: `name`, `fullName`,
   `tagline`, `sections[]` (work), `music{}` (own releases), `about`,
   `photo` (About portrait, `images/rienk.jpg`), `email`, `socials[]`.
   **About section:** the heading is a STATEMENT, not a label — "I'M
@@ -105,7 +105,7 @@ He may write in Dutch; that's fine.
   into a pill cloud on phones. Throwing the two to opposite edges of the
   hero was rejected — the reader had to jump the gap to finish the
   sentence; so was a plain-text `·`-divided row (superseded by the pills).
-- `site/index.html` — skeleton with `data-slot` / `data-content` hooks. The
+- `docs/index.html` — skeleton with `data-slot` / `data-content` hooks. The
   `<title>` and meta description are **deliberately static** here (JS must
   not overwrite them — taglines are sentence fragments that make bad titles).
   The head also carries the full share-preview block (`og:type`,
@@ -123,14 +123,14 @@ He may write in Dutch; that's fine.
   The contact heading is `GET IN <br>TOUCH` — the space before the `<br>`
   is deliberate: without it `textContent` reads "GET INTOUCH", which is
   what crawlers, copy-paste and accessible-name computation see.
-- `site/css/style.css` — all styling; design tokens in `:root`.
-- `site/js/site.js` — renders content.js into the DOM. One IIFE, ES5-ish style,
+- `docs/css/style.css` — all styling; design tokens in `:root`.
+- `docs/js/site.js` — renders content.js into the DOM. One IIFE, ES5-ish style,
   no dependencies.
-- `site/fonts/` — self-hosted woff2 (unicode-range subsets).
-- `site/images/` — banner pictures. **Lowercase filenames only** (macOS is
+- `docs/fonts/` — self-hosted woff2 (unicode-range subsets).
+- `docs/images/` — banner pictures. **Lowercase filenames only** (macOS is
   case-insensitive, static hosts are not — wrong case works locally and
   404s online). Landscape ~16:9 preferred; cards crop with `object-fit: cover`.
-- `site/og.jpg` — 1200×630 social-share image (size verified, mirrored in the
+- `docs/og.jpg` — 1200×630 social-share image (size verified, mirrored in the
   `og:image:width`/`height` tags). Scrapers don't resolve relative paths, so
   the URLs are **absolute** and the domain is baked in as
   `https://rienkspeelman.nl/`. Change the domain and **three** lines in
@@ -154,10 +154,10 @@ He may write in Dutch; that's fine.
   exactly that, because nothing else can detect it. Comments are not data and
   do not survive a rebuild (the TEST ITEM note will vanish on his first save).
 - **The repo is SPLIT, and that split is the security boundary.** Everything
-  publishable lives in `site/` (`index.html`, `content.js`, `css/`, `js/`,
+  publishable lives in `docs/` (`index.html`, `content.js`, `css/`, `js/`,
   `fonts/`, `images/`, `og.jpg`, `favicon.svg`, `404.html`); everything else
   — `editor.html`, `README.md`, this file, spare `content-*.js` copies,
-  `.claude/` — sits OUTSIDE it and is never uploaded. Rienk drags `site`,
+  `.claude/` — sits OUTSIDE it and is never uploaded. Rienk drags `docs`,
   not the project folder.
   This replaced a `_redirects` blocklist that 404'd the working files, and
   it was replaced because that approach leaked three separate times: a
@@ -168,13 +168,13 @@ He may write in Dutch; that's fine.
   all served the real file. A blocklist there can never be airtight because
   the case permutations are unbounded. **Do not reintroduce `_redirects` as
   a way to hide files** — if something must not be public, it goes outside
-  `site/`. Note the diagnostic trap that hid this: a blocked path and an
+  `docs/`. Note the diagnostic trap that hid this: a blocked path and an
   absent file both return 404, so "it 404s" proves nothing unless you have
   separately confirmed the file is in that deploy.
-- `site/404.html` — Netlify serves it automatically; deliberately standalone, no
+- `docs/404.html` — Netlify serves it automatically; deliberately standalone, no
   `content.js` or `site.js`, so the page that says "not found" cannot fail
   for the same reason the visitor arrived.
-- `site/favicon.svg`. Outside `site/`: `editor.html`, `README.md` (owner
+- `docs/favicon.svg`. Outside `docs/`: `editor.html`, `README.md` (owner
   manual, Dutch, one screen), this file, and spare `content-*.js` copies.
 - `.claude/launch.json` — dev server config (`python3 -m http.server 8123`).
 
@@ -870,8 +870,8 @@ yet.
   imaging is the most on-message work he has, and they only went because
   there is nothing to link. If he supplies links, they come straight back.
 - Spare line-ups (`content-oud.js`, `content-v2.js`, whatever else) sit at
-  the PROJECT root, not in `site/`, so they can never publish. Only
-  `site/content.js` is ever loaded.
+  the PROJECT root, not in `docs/`, so they can never publish. Only
+  `docs/content.js` is ever loaded.
 - The section is called **"Television"**, not "Television & Radio": the
   radio credits (Qmusic, 3FM jingles) were the link-less ones, so no radio
   work survives the cut. Rename it back if they return.

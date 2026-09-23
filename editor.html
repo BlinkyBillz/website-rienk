@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inhoud bewerken — Rienk Speelman</title>
-<link rel="icon" href="site/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="docs/favicon.svg" type="image/svg+xml">
 <style>
 /* ==========================================================================
    RIENK SPEELMAN — content editor
@@ -20,32 +20,32 @@
 
 @font-face {
   font-family: "Bebas Neue"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("site/fonts/bebasneue-400-latin-ext.woff2") format("woff2");
+  src: url("docs/fonts/bebasneue-400-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Bebas Neue"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("site/fonts/bebasneue-400-latin.woff2") format("woff2");
+  src: url("docs/fonts/bebasneue-400-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
   font-family: "Space Mono"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("site/fonts/spacemono-400-latin-ext.woff2") format("woff2");
+  src: url("docs/fonts/spacemono-400-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Space Mono"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url("site/fonts/spacemono-400-latin.woff2") format("woff2");
+  src: url("docs/fonts/spacemono-400-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
   font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("site/fonts/spacemono-700-latin-ext.woff2") format("woff2");
+  src: url("docs/fonts/spacemono-700-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Space Mono"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url("site/fonts/spacemono-700-latin.woff2") format("woff2");
+  src: url("docs/fonts/spacemono-700-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -481,7 +481,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     <span class="status" id="status">Alles opgeslagen</span>
     <span class="topbar-spacer"></span>
     <button class="btn btn-ghost" type="button" id="preview-toggle" aria-pressed="false" hidden>Voorbeeld</button>
-    <a class="btn btn-ghost" id="preview-link" href="site/index.html" target="_blank" rel="noopener">Bekijk de site</a>
+    <a class="btn btn-ghost" id="preview-link" href="docs/index.html" target="_blank" rel="noopener">Bekijk de site</a>
     <button class="btn btn-ghost" type="button" id="help-toggle">Hulp</button>
     <button class="btn btn-primary" type="button" id="save-btn">Opslaan</button>
   </div>
@@ -499,13 +499,13 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
         <h3>Opslaan</h3>
         <ol>
           <li>Klik op <strong>Opslaan</strong>.</li>
-          <li>Vraagt de browser waar het bestand heen moet? Kies de map <strong>site</strong> en overschrijf <code>content.js</code>.</li>
-          <li>Krijg je in plaats daarvan een download? Sleep het gedownloade <code>content.js</code> in de map <strong>site</strong>, over het oude bestand heen.</li>
+          <li>Vraagt de browser waar het bestand heen moet? Kies de map <strong>docs</strong> en overschrijf <code>content.js</code>.</li>
+          <li>Krijg je in plaats daarvan een download? Sleep het gedownloade <code>content.js</code> in de map <strong>docs</strong>, over het oude bestand heen.</li>
         </ol>
 
         <h3>Bekijken</h3>
         <p>Klik bovenin op <strong>Voorbeeld</strong> en je site verschijnt naast dit formulier, bijgewerkt zodra je even stopt met typen. Met <strong>Telefoon</strong> / <strong>Laptop</strong> wissel je tussen de twee schermbreedtes. Het blijft een voorbeeld &mdash; opgeslagen is er pas iets als je op Opslaan klikt. Op een smal scherm is er geen ruimte voor en is de knop er niet.</p>
-        <p>De echte site: dubbelklik <strong>index.html</strong> in de map <strong>site</strong>. Al open? Ververs de pagina (Cmd+R). Video&rsquo;s openen daar op YouTube in plaats van op de pagina zelf &mdash; online spelen ze gewoon af.</p>
+        <p>De echte site: dubbelklik <strong>index.html</strong> in de map <strong>docs</strong>. Al open? Ververs de pagina (Cmd+R). Video&rsquo;s openen daar op YouTube in plaats van op de pagina zelf &mdash; online spelen ze gewoon af.</p>
 
         <h3>Publiceren</h3>
         <p>Sleep de hele map naar Netlify Drop. Opnieuw slepen = de site bijwerken.</p>
@@ -546,7 +546,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
       <!-- STUDIO -->
       <div class="panel">
         <h2>STUDIO</h2>
-        <p class="panel-note">Een lokale video die meteen op de site begint te spelen. Zet het bestand in <code>site/videos</code>.</p>
+        <p class="panel-note">Een lokale video die meteen op de site begint te spelen. Zet het bestand in <code>docs/videos</code>.</p>
         <div id="studio"></div>
       </div>
 
@@ -605,7 +605,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
 
 <!-- the only way to read content.js when this page is opened straight from
      the hard drive: fetch() and XHR are both blocked on file:// -->
-<script src="site/content.js"></script>
+<script src="docs/content.js"></script>
 
 <script>
 (function () {
@@ -1240,10 +1240,10 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
           "Bestand niet gevonden. Let op hoofd- en kleine letters — op je eigen " +
           "Mac maakt dat niet uit, online wél.", null);
       };
-      /* content.js paths are relative to the SITE, which lives one folder
+      /* content.js paths are relative to the DOCS folder, which lives one folder
          down from this editor — so "images/x.jpg" has to be looked up as
-         "site/images/x.jpg". A full web address is left alone. */
-      probe.src = /^[a-z][a-z0-9+.-]*:/i.test(path) ? path : "site/" + path;
+        "docs/images/x.jpg". A full web address is left alone. */
+      probe.src = /^[a-z][a-z0-9+.-]*:/i.test(path) ? path : "docs/" + path;
     }
 
     function schedule(path) {
@@ -1683,7 +1683,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     }).wrap);
 
     host.appendChild(makeField("Videobestand", studio.video || studio.src || "videos/studio.mp4", {
-      hint: "Een bestand in site/videos, bijvoorbeeld videos/studio.mp4. Gebruik geen YouTube-link.",
+      hint: "Een bestand in docs/videos, bijvoorbeeld videos/studio.mp4. Gebruik geen YouTube-link.",
       placeholder: "videos/studio.mp4",
       onInput: function (v) {
         if (!data.studio || typeof data.studio !== "object") {
@@ -1869,7 +1869,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     if (why) nodes.push(el("p", "note", why));
     nodes.push(el("p", "note note-ok",
       "content.js staat nu in je map Downloads. Sleep dat bestand in de map " +
-      "<strong>site</strong>, over het oude content.js heen, en ververs daarna de site."));
+      "<strong>docs</strong>, over het oude content.js heen, en ververs daarna de site."));
     /* From the second download on, the browser refuses to reuse the name and
        silently saves content(1).js — which can never overwrite anything. He
        would drag it across, see nothing change, and have no way to know why.
@@ -1982,9 +1982,9 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
 
   /* absolute: while the frame is still empty its own address is
      about:blank, and a relative link has nothing to hang on to there.
-     "site/" because the publishable site lives one folder down — this
+      "docs/" because the publishable site lives one folder down — this
      editor deliberately sits OUTSIDE it so it is never uploaded. */
-  var SITE_URL = location.href.split("#")[0].split("?")[0].replace(/[^/]*$/, "") + "site/index.html";
+    var SITE_URL = location.href.split("#")[0].split("?")[0].replace(/[^/]*$/, "") + "docs/index.html";
 
   function store(key, value) {
     try { window.sessionStorage.setItem(key, value); } catch (err) { /* private window: forget it */ }
