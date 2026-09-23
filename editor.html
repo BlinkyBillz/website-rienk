@@ -725,7 +725,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
       /* a section with nothing in it never reaches the page, so it never
          gets an id either — and then it is not counted for the "Work 2"
          fallback name the site uses for a nameless section */
-      if (!section || typeof section !== "object" || !asArray(section.items).length) return;
+      if (!section || typeof section !== "object" || !sectionEnabled(section) || !asArray(section.items).length) return;
       shown += 1;
       var slug = (asText(section.title) || "Work " + shown).toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
@@ -804,6 +804,20 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     return "right";
   }
 
+  function enabledMode(value) {
+    if (value == null) return true;
+    if (typeof value === "boolean") return value;
+    var text = asText(value).toLowerCase();
+    if (text === "" || text === "true" || text === "yes" || text === "on" || text === "1") return true;
+    if (text === "false" || text === "no" || text === "off" || text === "0") return false;
+    return true;
+  }
+
+  function sectionEnabled(section) {
+    if (!section || typeof section !== "object") return false;
+    return enabledMode(section.enabled);
+  }
+
   function rollMode(item) {
     if (!item || typeof item !== "object") return false;
     var r = item.roll;
@@ -825,7 +839,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
 
   var ROOT_ORDER = ["name", "fullName", "tagline", "sections", "music", "studio",
                     "photo", "about", "email", "socials"];
-  var SECTION_ORDER = ["title", "items"];
+  var SECTION_ORDER = ["title", "enabled", "items"];
   var ITEM_ORDER = ["title", "subtitle", "description", "desc", "link",
                     "youtube", "spotify", "url", "image", "featured",
                     "feature", "roll"];
@@ -1550,6 +1564,9 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
         onInput: function (v) { setField(section, "title", asText(v), SECTION_ORDER); }
       });
       head.appendChild(titleField.wrap);
+      head.appendChild(makeCheck("Actief op de site", sectionEnabled(section), function (checked) {
+        setField(section, "enabled", checked, SECTION_ORDER);
+      }).wrap);
       head.appendChild(toolButtons(list, index, "de hele sectie “" +
         (asText(section.title) || "zonder naam") + "” met alles erin", renderSections));
       block.appendChild(head);
@@ -1609,6 +1626,16 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
       }).wrap);
     }
 
+    host.appendChild(makeCheck("Actief op de site", enabledMode(data.music && data.music.enabled), function (checked) {
+      if (Array.isArray(data.music)) {
+        setField(data, "music", { title: "Music", items: data.music }, ROOT_ORDER);
+      }
+      if (!data.music || typeof data.music !== "object") {
+        setField(data, "music", { title: "Music", items: [] }, ROOT_ORDER);
+      }
+      setField(data.music, "enabled", checked, SECTION_ORDER);
+    }).wrap);
+
     var list = musicItems();
     host.appendChild(el("p", "sub-label", "Releases"));
     var items = el("div");
@@ -1639,12 +1666,19 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
       ? data.studio
       : {};
 
+    host.appendChild(makeCheck("Actief op de site", enabledMode(studio.enabled), function (checked) {
+      if (!data.studio || typeof data.studio !== "object") {
+        setField(data, "studio", {}, ROOT_ORDER);
+      }
+      setField(data.studio, "enabled", checked, ["title", "enabled", "video", "src"]);
+    }).wrap);
+
     host.appendChild(makeField("Naam van het blok", studio.title || "Studio", {
       onInput: function (v) {
         if (!data.studio || typeof data.studio !== "object") {
           setField(data, "studio", {}, ROOT_ORDER);
         }
-        setField(data.studio, "title", asText(v), ["title", "video"]);
+        setField(data.studio, "title", asText(v), ["title", "enabled", "video", "src"]);
       }
     }).wrap);
 
@@ -1655,7 +1689,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
         if (!data.studio || typeof data.studio !== "object") {
           setField(data, "studio", {}, ROOT_ORDER);
         }
-        setField(data.studio, "video", asText(v), ["title", "video"]);
+        setField(data.studio, "video", asText(v), ["title", "enabled", "video", "src"]);
       }
     }).wrap);
   }
