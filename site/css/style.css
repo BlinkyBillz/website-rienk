@@ -621,7 +621,17 @@ a:hover { color: var(--accent); }
 /* ---------- sections ---------- */
 
 .section {
-  padding: clamp(3.5rem, 10vh, 7rem) var(--pad-x);
+  --section-pad-top: clamp(3.5rem, 10vh, 7rem);
+  padding: var(--section-pad-top) var(--pad-x);
+}
+
+/* These sections keep their breathing room when the page is read normally,
+   but their headings should arrive directly below the fixed header when a
+   navigation link jumps to them. Work keeps its existing scroll position. */
+.music-section,
+.studio-section,
+.section-about {
+  scroll-margin-top: calc(var(--section-pad-top) * -0.8);
 }
 
 .work-section {
@@ -662,7 +672,8 @@ a:hover { color: var(--accent); }
 
 /* hairline between work sections keeps the zones readable */
 .work-section + .work-section,
-.music-section {
+.music-section,
+.studio-section {
   border-top: 1px solid rgba(245, 245, 245, 0.08);
 }
 
@@ -683,6 +694,26 @@ a:hover { color: var(--accent); }
   /* the base .giant-label margin is sized for the full-scale headings;
      scale the gap down with the type */
   margin-bottom: clamp(2rem, 4vh, 2.5rem);
+}
+
+#studio .giant-label {
+  font-size: clamp(3rem, 7.5vw, 6.5rem);
+  margin-bottom: clamp(2rem, 4vh, 2.5rem);
+}
+
+.studio-video {
+  width: 100%;
+  aspect-ratio: var(--frame-ratio);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #000;
+}
+
+.studio-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ---------- work grid & cards ---------- */
@@ -1287,7 +1318,7 @@ a.banner-generated:hover .banner-title {
   .work-card.is-action .video-thumb:focus-visible img,
   .work-card.is-action .banner:hover img,
   .work-card.is-action .banner:focus-visible img {
-    filter: blur(10px) brightness(0.75);
+    filter: blur(2px) brightness(0.75);
     transform: scale(1.05); /* hides the soft edges the blur creates */
     transition-duration: var(--hover-in);
     transition-timing-function: var(--ease-smooth);
@@ -1435,9 +1466,9 @@ a.banner-generated:hover .banner-title {
   line-height: 1.8;
 }
 
-/* the frame does the clipping so the blur can't soften the circle's edge.
-   Flush with the right edge of the page column: the statement holds the
-   left, the portrait closes the row. */
+/* the frame clips the gentle zoom, matching the quiet client-roll thumbs.
+  Flush with the right edge of the page column: the statement holds the
+  left, the portrait closes the row. */
 .about-photo {
   width: clamp(220px, 30vw, 440px);
   aspect-ratio: 1 / 1;
@@ -1453,15 +1484,15 @@ a.banner-generated:hover .banner-title {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(1.03);
+  filter: contrast(1.03) brightness(0.85) saturate(0.9);
   transition: transform var(--hover-out) var(--ease-release),
               filter var(--hover-out) var(--ease-release);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .about-photo:hover img {
-    filter: contrast(1.03) blur(10px) brightness(0.75);
-    transform: scale(1.05); /* pushes the blur's soft edge out of the frame */
+    filter: contrast(1.03) brightness(1) saturate(1);
+    transform: scale(1.05);
     transition-duration: var(--hover-in);
     transition-timing-function: var(--ease-smooth);
   }

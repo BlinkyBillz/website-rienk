@@ -543,6 +543,13 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
         <div id="music"></div>
       </div>
 
+      <!-- STUDIO -->
+      <div class="panel">
+        <h2>STUDIO</h2>
+        <p class="panel-note">Een lokale video die meteen op de site begint te spelen. Zet het bestand in <code>site/videos</code>.</p>
+        <div id="studio"></div>
+      </div>
+
       <!-- OVER MIJ -->
       <div class="panel">
         <h2>OVER MIJ</h2>
@@ -711,7 +718,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
      he is working in. Same rules as js/site.js: the same six names are
      claimed up front by the page's own anchors, and a repeat gets -2. */
   function sectionSlugs() {
-    var used = { work: true, music: true, about: true, contact: true, top: true, "mobile-menu": true };
+    var used = { work: true, music: true, studio: true, about: true, contact: true, top: true, "mobile-menu": true };
     var slugs = {};
     var shown = 0;
     asArray(data.sections).forEach(function (section, rawIndex) {
@@ -816,7 +823,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
      object IN PLACE (same object, so every reference stays valid).
      ====================================================================== */
 
-  var ROOT_ORDER = ["name", "fullName", "tagline", "sections", "music",
+  var ROOT_ORDER = ["name", "fullName", "tagline", "sections", "music", "studio",
                     "photo", "about", "email", "socials"];
   var SECTION_ORDER = ["title", "items"];
   var ITEM_ORDER = ["title", "subtitle", "description", "desc", "link",
@@ -968,6 +975,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     ["NAAM & TAGLINE", ["name", "fullName", "tagline"]],
     ["WERK, PER SECTIE", ["sections"]],
     ["MUZIEK (eigen releases)", ["music"]],
+    ["STUDIO (lokale video)", ["studio"]],
     ["OVER MIJ (foto + tekst)", ["photo", "about"]],
     ["CONTACT & SOCIALS", ["email", "socials"]]
   ];
@@ -1621,6 +1629,37 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     if (focusItem) revealItem(host);
   }
 
+  /* --- studio --- */
+
+  function renderStudio() {
+    var host = $("#studio");
+    while (host.firstChild) host.removeChild(host.firstChild);
+
+    var studio = data.studio && typeof data.studio === "object"
+      ? data.studio
+      : {};
+
+    host.appendChild(makeField("Naam van het blok", studio.title || "Studio", {
+      onInput: function (v) {
+        if (!data.studio || typeof data.studio !== "object") {
+          setField(data, "studio", {}, ROOT_ORDER);
+        }
+        setField(data.studio, "title", asText(v), ["title", "video"]);
+      }
+    }).wrap);
+
+    host.appendChild(makeField("Videobestand", studio.video || studio.src || "videos/studio.mp4", {
+      hint: "Een bestand in site/videos, bijvoorbeeld videos/studio.mp4. Gebruik geen YouTube-link.",
+      placeholder: "videos/studio.mp4",
+      onInput: function (v) {
+        if (!data.studio || typeof data.studio !== "object") {
+          setField(data, "studio", {}, ROOT_ORDER);
+        }
+        setField(data.studio, "video", asText(v), ["title", "video"]);
+      }
+    }).wrap);
+  }
+
   /* --- over mij --- */
 
   function renderAbout() {
@@ -2124,6 +2163,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--accent); outline
     renderBasics();
     renderSections();
     renderMusic();
+    renderStudio();
     renderAbout();
     renderContact();
     markSaved();

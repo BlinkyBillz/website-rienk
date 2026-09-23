@@ -1340,6 +1340,50 @@
     });
   }
 
+  /* ---------- studio (local video, not an embed) ---------- */
+
+  var studioData = content.studio;
+  var studioWrap = $('[data-slot="studio"]');
+  var studioVideo = studioData && typeof studioData === "object"
+    ? asText(studioData.video || studioData.src)
+    : "";
+  var studioTitle = studioData && typeof studioData === "object"
+    ? (asText(studioData.title) || "Studio")
+    : "Studio";
+
+  if (studioWrap && studioVideo) {
+    var studioSection = el("section", "section studio-section");
+    studioSection.id = "studio";
+    studioSection.appendChild(el("h2", "giant-label reveal", studioTitle.toUpperCase()));
+
+    var studioFrame = el("div", "studio-video reveal");
+    var studioPlayer = el("video");
+    studioPlayer.src = studioVideo;
+    studioPlayer.autoplay = true;
+    studioPlayer.muted = true;
+    studioPlayer.defaultMuted = true;
+    studioPlayer.playsInline = true;
+    studioPlayer.controls = true;
+    studioPlayer.preload = "auto";
+    studioPlayer.setAttribute("aria-label", studioTitle);
+    studioFrame.appendChild(studioPlayer);
+    studioSection.appendChild(studioFrame);
+    studioWrap.appendChild(studioSection);
+
+    $all('[data-slot="studio-link"]').forEach(function (a) {
+      a.textContent = studioTitle.toUpperCase();
+    });
+    if (mobileNav) {
+      var studioNavLink = el("a", null, studioTitle.toUpperCase());
+      studioNavLink.href = "#studio";
+      mobileNav.appendChild(studioNavLink);
+    }
+  } else {
+    $all('[data-slot="studio-link"]').forEach(function (a) {
+      a.hidden = true;
+    });
+  }
+
   /* finish the mobile menu with About + Contact */
   if (mobileNav) {
     var aboutLink = el("a", null, "ABOUT");

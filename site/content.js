@@ -257,6 +257,13 @@ window.SITE_CONTENT = {
     ],
   },
 
+  /* ------------ STUDIO (lokale video) ------------ */
+
+  studio: {
+    title: "Studio",
+    video: "videos/STUDIO_RIENK.mov",
+  },
+
   /* ------------ OVER MIJ (foto + tekst) ------------ */
 
   photo: "images/rienk.jpg",

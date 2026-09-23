@@ -33,6 +33,14 @@ plaats van op de pagina zelf. Dat is een regel van YouTube voor bestanden
 die je rechtstreeks opent, niet iets dat stuk is. Online spelen ze gewoon
 af waar ze horen.
 
+## Studio-video
+
+De knop **STUDIO** speelt een eigen videobestand direct op de site af. Zet het
+bestand in `site/videos/` en vul in de editor bijvoorbeeld
+`videos/studio.mp4` in. De video begint automatisch, zonder geluid; de
+bezoeker kan het geluid aanzetten met de speler. Gebruik hiervoor geen
+YouTube-link.
+
 ## Foto's
 
 Zet ze in de map `site/images/`. Gebruik **liggend** beeld (de vorm van een
