@@ -154,15 +154,15 @@ window.SITE_CONTENT = {
           image: "images/wie-kent-nederland.jpg",
         },
         {
-          title: "First Dates — VOX",
-          subtitle: "Sync placement",
-          description: "Vocals, Songwriting - Produced by Manfred Roovers",
+          title: "First Dates",
+          subtitle: "Sync placement — VOX",
           link: "https://www.vox.de/videos/anke-sucht-das-kribbeln-und-ludwig-hoert-aufs-bauchgefuehl-69aed0cf390dc45c1f08a152",
           image: "images/vox-show.jpg",
+          roll: true,
         },
         {
           title: "Dating Naked UK",
-          subtitle: "Sync placement  · Paramount+",
+          subtitle: "Sync placement - Paramount+",
           description: "Vocals, Songwriting - Produced by Manfred Roovers",
           image: "images/dating-naked-uk.jpg",
           roll: true,
@@ -171,6 +171,13 @@ window.SITE_CONTENT = {
           title: "Love Is Blind",
           subtitle: "Sync placement · Netflix",
           image: "images/love-is-blind.jpg",
+          roll: true,
+        },
+        {
+          title: "Jersey Shore",
+          subtitle: "Sync placement · MTV",
+          description: "Vocals, Songwriting - Produced by Manfred Roovers",
+          image: "images/jersey.jpg",
           roll: true,
         },
         {
